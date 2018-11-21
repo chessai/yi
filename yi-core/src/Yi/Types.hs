@@ -28,6 +28,7 @@ module Yi.Types where
 
 import           Control.Concurrent             (MVar, modifyMVar, modifyMVar_, readMVar)
 import           Control.Monad.Base             (MonadBase, liftBase)
+import           Control.Monad.Fail             (MonadFail)
 import           Control.Monad.Reader
 import           Control.Monad.State.Strict
 import           Control.Monad (ap, liftM3, void, forever)
@@ -169,7 +170,8 @@ extractTopKeymap kms = forever (topKeymap kms)
 newtype BufferM a = BufferM { fromBufferM :: ReaderT Window (State FBuffer) a }
     deriving ( Monad, Functor, Typeable
              , MonadState FBuffer
-             , MonadReader Window )
+             , MonadReader Window
+             , MonadFail (State FBuffer) )
 
 -- | Currently duplicates some of Vim's indent settings. Allowing a
 -- buffer to specify settings that are more dynamic, perhaps via
