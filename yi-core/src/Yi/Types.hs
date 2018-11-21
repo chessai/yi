@@ -171,7 +171,7 @@ newtype BufferM a = BufferM { fromBufferM :: ReaderT Window (State FBuffer) a }
     deriving ( Monad, Functor, Typeable
              , MonadState FBuffer
              , MonadReader Window
-             , MonadFail (State FBuffer) )
+             , MonadFail )
 
 -- | Currently duplicates some of Vim's indent settings. Allowing a
 -- buffer to specify settings that are more dynamic, perhaps via
